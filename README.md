@@ -11,7 +11,7 @@
 | last_name          | string  | null: false               |
 | first_name_kana    | string  | null: false               |
 | last_name_kana     | string  | null: false               |
-| birthday_id        | date    | null: false               |
+| birthday           | date    | null: false               |
 
 ### Association
 
@@ -46,7 +46,7 @@
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
 - belongs_to :item
 - has_one  :address
 
@@ -60,7 +60,7 @@
 | house_number   | string     | null: false                    |
 | building_name  | string     |                                |
 | telephone      | string     | null: false                    |
-| purchase       | integer    | null: false, foreign_key: true |
+| purchase       | references | null: false, foreign_key: true |
 
 ### Association
 
