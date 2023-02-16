@@ -2,7 +2,9 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one_attached :image
-  validates :price, presence: true
+  with_options presence: true do
+  validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: 'is invalid'}
+  end
   validates :title, presence: true
   validates :explanation, presence: true
   
