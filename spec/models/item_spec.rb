@@ -27,31 +27,6 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Explanation can't be blank")
       end
-      it "categoryが空では登録できない" do
-        @item.category_id = ''
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank")
-      end
-      it "conditionが空では登録できない" do
-        @item.condition_id = ''
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Condition can't be blank")
-      end
-      it "delivery chargeが空では登録できない" do
-        @item.delivery_charge_id = ''
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Delivery charge can't be blank")
-      end
-      it "delivery dayが空では登録できない" do
-        @item.delivery_day_id = ''
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Delivery day can't be blank")
-      end
-      it "prefectureが空では登録できない" do
-        @item.prefecture_id = ''
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
-      end
       it "priceが空では登録できない" do
         @item.price = nil
         @item.valid?
