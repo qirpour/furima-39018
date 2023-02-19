@@ -19,7 +19,7 @@
         ¥ <%= @item.price %>
       </span>
       <span class="item-postage">
-        <%= DeliveryCharge.data[@item.delivery_charge_id - 1][:name] %>
+        <%= @item.delivery_charge.name %>
       </span>
     </div>
 
@@ -50,23 +50,23 @@
         </tr>
         <tr>
           <th class="detail-item">カテゴリー</th>
-          <td class="detail-value"><%= Category.data[@item.category_id - 1][:name] %></td>
+          <td class="detail-value"><%= @item.category.name%></td>
         </tr>
         <tr>
           <th class="detail-item">商品の状態</th>
-          <td class="detail-value"><%= Condition.data[@item.condition_id - 1][:name] %></td>
+          <td class="detail-value"><%= @item.condition.name %></td>
         </tr>
         <tr>
           <th class="detail-item">配送料の負担</th>
-          <td class="detail-value"><%= DeliveryCharge.data[@item.delivery_charge_id - 1][:name] %></td>
+          <td class="detail-value"><%= @item.delivery_charge.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送元の地域</th>
-          <td class="detail-value"><%= Prefecture.data[@item.prefecture_id - 1][:name] %></td>
+          <td class="detail-value"><%= @item.prefecture.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送日の目安</th>
-          <td class="detail-value"><%= DeliveryDay.data[@item.delivery_day_id - 1][:name] %></td>
+          <td class="detail-value"><%= @item.delivery_day.name %></td>
         </tr>
       </tbody>
     </table>
@@ -105,7 +105,8 @@
       後ろの商品 ＞
     </a>
   </div>
-  <a href="#" class="another-item"><%= Category.data[@item.category_id - 1][:name] %>をもっと見る</a>
+  <a href="#" class="another-item"><%= @item.category.name %>
+  をもっと見る</a>
 </div>
 
 <%= render "shared/footer" %>
