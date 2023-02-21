@@ -20,7 +20,7 @@ RSpec.describe OrderAddress, type: :model do
 
     context '内容に問題がある場合' do
       it 'tokenが空だと保存できないこと' do
-        @order_address.token = ''
+        @order_address.token = nil
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Token can't be blank")
       end
@@ -54,8 +54,23 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Telephone can't be blank")
       end
-      it 'telephoneが正しい形式でないと保存できないこと' do
+      it 'telephoneにハイフンが含まれていると保存できないこと' do
         @order_address.telephone = '000-0000-0000'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Telephone is invalid.")
+      end
+      it 'telephoneが9桁以下だと保存できないこと' do
+        @order_address.telephone = '0000000'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Telephone is invalid.")
+      end
+      it 'telephoneが12桁以上だと保存できないこと' do
+        @order_address.telephone = '0000000000000000000'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Telephone is invalid.")
+      end
+      it 'telephoneに半角数字以外が含まれていると保存できないこと' do
+        @order_address.telephone = 'テスト'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Telephone is invalid.")
       end
