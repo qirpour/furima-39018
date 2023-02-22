@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
   before_action :move_to_index, only: [:edit, :destroy]
+  before_action :move_to_index_sold_out, only: [:edit, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -48,6 +49,13 @@ end
   def move_to_index
     @item = Item.find(params[:id])
     unless current_user.id == @item.user.id
+      redirect_to root_path
+    end
+  end
+
+  def move_to_index_sold_out
+    @item = Item.find(params[:id])
+    if @item.order
       redirect_to root_path
     end
   end
