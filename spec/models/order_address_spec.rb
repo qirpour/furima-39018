@@ -32,7 +32,7 @@ RSpec.describe OrderAddress, type: :model do
       it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @order_address.postal_code = '1234567'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+        expect(@order_address.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
       it 'prefectureを選択していないと保存できないこと' do
         @order_address.prefecture_id = 0
@@ -57,29 +57,29 @@ RSpec.describe OrderAddress, type: :model do
       it 'telephoneにハイフンが含まれていると保存できないこと' do
         @order_address.telephone = '000-0000-0000'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Telephone is invalid.")
+        expect(@order_address.errors.full_messages).to include('Telephone is invalid.')
       end
       it 'telephoneが9桁以下だと保存できないこと' do
         @order_address.telephone = '0000000'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Telephone is invalid.")
+        expect(@order_address.errors.full_messages).to include('Telephone is invalid.')
       end
       it 'telephoneが12桁以上だと保存できないこと' do
         @order_address.telephone = '0000000000000000000'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Telephone is invalid.")
+        expect(@order_address.errors.full_messages).to include('Telephone is invalid.')
       end
       it 'telephoneに半角数字以外が含まれていると保存できないこと' do
         @order_address.telephone = 'テスト'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Telephone is invalid.")
+        expect(@order_address.errors.full_messages).to include('Telephone is invalid.')
       end
-      it "itemが紐づいていなければ登録できない" do
+      it 'itemが紐づいていなければ登録できない' do
         @order_address.item_id = nil
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Item can't be blank")
       end
-      it "userが紐づいていなければ登録できない" do
+      it 'userが紐づいていなければ登録できない' do
         @order_address.user_id = nil
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("User can't be blank")

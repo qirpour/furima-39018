@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    @items = Item.includes(:user).order("created_at DESC")
+    @items = Item.includes(:user).order('created_at DESC')
   end
 
   def new
@@ -15,53 +15,53 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-    redirect_to root_path
+      redirect_to root_path
     else
-    render :new
+      render :new
     end
   end
 
-def show
-end
-
-def edit
-end
-
-def update
-  if @item.update(item_params)
-  redirect_to item_path(@item)
-  else
-  render :edit
+  def show
   end
-end
 
-def destroy
-  @item.destroy
-  redirect_to root_path
-end
+  def edit
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @item.destroy
+    redirect_to root_path
+  end
 
   private
 
   def item_params
-    params.require(:item).permit(:title, :image, :explanation, :price, :category_id, :condition_id, :delivery_charge_id, :prefecture_id, :delivery_day_id).merge(user_id: current_user.id)
+    params.require(:item).permit(:title, :image, :explanation, :price, :category_id, :condition_id, :delivery_charge_id,
+                                 :prefecture_id, :delivery_day_id).merge(user_id: current_user.id)
   end
 
   def move_to_index
     @item = Item.find(params[:id])
-    unless current_user.id == @item.user.id
-      redirect_to root_path
-    end
+    return if current_user.id == @item.user.id
+
+    redirect_to root_path
   end
 
   def move_to_index_sold_out
     @item = Item.find(params[:id])
-    if @item.order
-      redirect_to root_path
-    end
+    return unless @item.order
+
+    redirect_to root_path
   end
 
   def set_item
     @item = Item.find(params[:id])
   end
-
 end

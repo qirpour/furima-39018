@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
   before_action :move_to_index, only: [:index]
   before_action :move_to_index_sold_out, only: [:index]
 
-
   def index
     @order_address = OrderAddress.new
   end
@@ -27,29 +26,30 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :house_number, :building_name, :telephone).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :house_number, :building_name, :telephone).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def move_to_index
-    if current_user.id == @item.user.id
-      redirect_to root_path
-    end
+    return unless current_user.id == @item.user.id
+
+    redirect_to root_path
   end
 
   def move_to_index_sold_out
-    if @item.order != nil
-      redirect_to root_path
-    end
+    return if @item.order.nil?
+
+    redirect_to root_path
   end
 
   def pay_item
     price = @item.price
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-      amount: price, 
-      card: order_params[:token],   
-      currency: 'jpy'        
+      amount: price,
+      card: order_params[:token],
+      currency: 'jpy'
     )
   end
-
 end
