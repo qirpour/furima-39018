@@ -22,6 +22,11 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Images can't be blank")
       end
+      it 'imagesが6枚以上では登録できない' do
+        @item.images.attach(io: File.open('public/images/test_image6.png'), filename: 'test_image6.png')
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Images は1枚以上5枚以下にしてください")
+      end
       it 'explanationが空では登録できない' do
         @item.explanation = ''
         @item.valid?
