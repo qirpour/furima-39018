@@ -7,13 +7,14 @@
       <%= @item.title %>
     </h2>
     <div class="item-img-content">
-      <%= image_tag @item.image ,class:"item-box-img" %>
+      <%= image_tag @item.images[0] ,class:"item-box-img" %><br>
+        <div class="other-images">
+          <% @item.images[1..-1].each do |image| %>
+              <%= image_tag image ,class:"item-box-img" %>
+          <%end%>
+         </div>
 
-      <% if @item.order != nil  %>
-      <div class="sold-out">
-        <span>Sold Out!!</span>
-      </div>
-      <% end %>
+
 
     </div>
     <div class="item-price-box">
@@ -24,6 +25,12 @@
         <%= @item.delivery_charge.name %>
       </span>
     </div>
+
+      <% if @item.order != nil  %>
+      <div class="item-sold-out-btn">
+        <span>Sold Out!!</span>
+      </div>
+      <% end %>
 
     <% if user_signed_in? && @item.order == nil %>
       <% if @item.user_id == current_user.id %>

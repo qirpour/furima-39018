@@ -1,5 +1,6 @@
 function tax (){
   const itemPrice = document.getElementById("item-price")
+  if (!itemPrice) return null;
   itemPrice.addEventListener("keyup", () => {
     const price = itemPrice.value;
     const taxPrice = Math.floor(price / 10)

@@ -17,10 +17,15 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Title can't be blank")
       end
-      it 'imageが空では登録できない' do
-        @item.image = nil
+      it 'imagesが空では登録できない' do
+        @item.images = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Image can't be blank")
+        expect(@item.errors.full_messages).to include("Images can't be blank")
+      end
+      it 'imagesが6枚以上では登録できない' do
+        @item.images.attach(io: File.open('public/images/test_image6.png'), filename: 'test_image6.png')
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Images は1枚以上5枚以下にしてください")
       end
       it 'explanationが空では登録できない' do
         @item.explanation = ''
@@ -80,3 +85,5 @@ RSpec.describe Item, type: :model do
     end
   end
 end
+
+# bundle exec rspec spec/models/item_spec.rb

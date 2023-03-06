@@ -29,8 +29,15 @@
   height: 50vh;
   width: 60vw;
   min-height: 500px;
-  background-color: rgb(205, 202, 202);
+  background-color: white;
   object-fit: contain;
+  padding-bottom: 10vh;
+}
+
+.other-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .item-price-box {
@@ -58,6 +65,18 @@
   color: #FFF;
   margin: 20px 0px;
   padding: 2vh 10vw;
+}
+
+.item-sold-out-btn {
+  text-align: center;
+  background-color: #ea352d;
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFF;
+  margin: 20px 0px;
+  padding: 4vh 33vw;
+  white-space: nowrap;
+  transform: skewY(-10deg);
 }
 
 .or-text {
