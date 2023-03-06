@@ -1,10 +1,13 @@
 const pay = () => {
   const payjp = Payjp(process.env.PAYJP_PUBLIC_KEY);
+  if (!payjp) return null;
   const elements = payjp.elements();
   const numberElement = elements.create('cardNumber');
   const expiryElement = elements.create('cardExpiry');
   const cvcElement = elements.create('cardCvc');
 
+  const numberForm = document.getElementById("number-form")
+  if (!numberForm) return null;
   numberElement.mount('#number-form');
   expiryElement.mount('#expiry-form');
   cvcElement.mount('#cvc-form');
