@@ -67,6 +67,18 @@
   padding: 2vh 10vw;
 }
 
+.item-sold-out-btn {
+  text-align: center;
+  background-color: #ea352d;
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFF;
+  margin: 20px 0px;
+  padding: 4vh 33vw;
+  white-space: nowrap;
+  transform: skewY(-10deg);
+}
+
 .or-text {
   font-size: 20px;
 }
