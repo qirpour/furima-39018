@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'cards/new'
   devise_for :users
   resources :users, only: [:show, :edit, :update]
   resources :cards, only: [:new, :create]
