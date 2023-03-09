@@ -18,6 +18,6 @@ class User < ApplicationRecord
   end
   validates :birthday, presence: true
 
-  has_many :items
-  has_many :orders
+  has_many :items, dependent: :destroy
+  has_many :orders, dependent: :destroy
 end
