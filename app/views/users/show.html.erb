@@ -1,0 +1,38 @@
+<%= render "shared/header" %>
+<div class="item-show">
+  <div class="item-box">
+    <h2 class="name">
+      ユーザー情報
+    </h2>
+    <%= link_to "情報の編集", edit_user_registration_path, class: "item-red-btn" %>
+    <p class="or-text">or</p>
+    <%= link_to "ユーザー削除", user_registration_path, method: :delete, class:"item-destroy" %>
+    <table class="detail-table">
+      <tbody>
+        <tr>
+          <th class="detail-item">ニックネーム</th>
+          <td class="detail-value"><%= @user.nickname %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">メールアドレス</th>
+          <td class="detail-value"><%= @user.email%></td>
+        </tr>
+        <tr>
+          <th class="detail-item">苗字</th>
+          <td class="detail-value"><%= @user.last_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">名前</th>
+          <td class="detail-value"><%= @user.first_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">生年月日</th>
+          <td class="detail-value"><%= @user.birthday %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+</div>
+
+<%= render "shared/footer" %>
