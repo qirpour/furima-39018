@@ -5,6 +5,9 @@ class OrdersController < ApplicationController
   before_action :move_to_index_sold_out, only: [:index]
 
   def index
+    if !current_user.card.present?
+      redirect_to user_path(current_user.id), notice: '商品購入前にクレジットカードを登録して下さい'
+    end
     @order_address = OrderAddress.new
   end
 

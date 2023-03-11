@@ -1,6 +1,16 @@
 <%= render "shared/header" %>
+
 <div class="item-show">
   <div class="item-box">
+
+  <% flash.each do |key, value| %>
+<div class="error-alert">
+    <p class="error-message-flash">
+      <%= value %>
+    </p>
+</div>
+<% end %>
+
     <h2 class="name">
       ユーザー情報
     </h2>
@@ -32,7 +42,7 @@
         <tr>
           <th class="detail-item">クレジットカード</th>
           <td class="detail-value">
-          <% if Card.find_by(user_id: current_user.id).present? %>
+          <% if current_user.card.present? %>
           <%  Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
               card = Card.find_by(user_id: current_user.id)
               customer = Payjp::Customer.retrieve(card.customer_token) 
@@ -45,7 +55,9 @@
         </tr>
       </tbody>
     </table>
+        <% if !current_user.card.present? %>
         <%= link_to "クレジットカード登録", new_card_path, class: "item-red-btn" %>
+        <% end %>
   </div>
   </div>
 </div>
