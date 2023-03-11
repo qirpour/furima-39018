@@ -7,6 +7,8 @@ class OrdersController < ApplicationController
   def index
     if !current_user.card.present?
       redirect_to user_path(current_user.id), notice: '商品購入前にクレジットカードを登録して下さい'
+    else
+      card_registration
     end
     @order_address = OrderAddress.new
   end
@@ -30,7 +32,7 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :house_number, :building_name, :telephone).merge(
-      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+      user_id: current_user.id, item_id: params[:item_id]
     )
   end
 
@@ -45,12 +47,22 @@ class OrdersController < ApplicationController
     redirect_to root_path
   end
 
+  def card_registration
+    if current_user.card.present?
+      Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
+      card = Card.find_by(user_id: current_user.id)
+      customer = Payjp::Customer.retrieve(card.customer_token) 
+      @card = customer.cards.first
+    end
+  end
+
   def pay_item
     price = @item.price
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    customer_token = current_user.card.customer_token
     Payjp::Charge.create(
       amount: price,
-      card: order_params[:token],
+      customer: customer_token,
       currency: 'jpy'
     )
   end
