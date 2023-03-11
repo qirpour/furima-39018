@@ -29,8 +29,23 @@
           <th class="detail-item">生年月日</th>
           <td class="detail-value"><%= @user.birthday %></td>
         </tr>
+        <tr>
+          <th class="detail-item">クレジットカード</th>
+          <td class="detail-value">
+          <% if Card.find_by(user_id: current_user.id).present? %>
+          <%  Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
+              card = Card.find_by(user_id: current_user.id)
+              customer = Payjp::Customer.retrieve(card.customer_token) 
+              @card = customer.cards.first %>
+              <%= "**** **** **** " + @card[:last4] %>
+          <% else %>
+          クレジットカード未登録
+          <% end %>
+          </td>
+        </tr>
       </tbody>
     </table>
+        <%= link_to "クレジットカード登録", new_card_path, class: "item-red-btn" %>
   </div>
   </div>
 </div>

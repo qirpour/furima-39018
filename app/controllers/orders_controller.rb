@@ -39,7 +39,6 @@ class OrdersController < ApplicationController
 
   def move_to_index_sold_out
     return if @item.order.nil?
-
     redirect_to root_path
   end
 
