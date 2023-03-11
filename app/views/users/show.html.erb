@@ -1,6 +1,16 @@
 <%= render "shared/header" %>
+
 <div class="item-show">
   <div class="item-box">
+
+<% flash.each do |key, value| %>
+<div class="error-alert">
+    <p class="error-message-flash">
+      <%= value %>
+    </p>
+</div>
+<% end %>
+
     <h2 class="name">
       ユーザー情報
     </h2>
@@ -29,8 +39,21 @@
           <th class="detail-item">生年月日</th>
           <td class="detail-value"><%= @user.birthday %></td>
         </tr>
+        <tr>
+          <th class="detail-item">クレジットカード</th>
+          <td class="detail-value">
+          <% if current_user.card.present? %>
+              <%= "**** **** **** " + @card[:last4] %>
+          <% else %>
+          クレジットカード未登録
+          <% end %>
+          </td>
+        </tr>
       </tbody>
     </table>
+        <% if !current_user.card.present? %>
+        <%= link_to "クレジットカード登録", new_card_path, class: "item-red-btn" %>
+        <% end %>
   </div>
   </div>
 </div>

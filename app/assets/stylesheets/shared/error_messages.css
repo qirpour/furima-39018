@@ -9,3 +9,10 @@
   list-style: circle;
   color: rgb(182, 48, 0);
 }
+
+.error-message-flash {
+  font-size: 2.7vw;
+  list-style: circle;
+  color: white;
+  background-color: rgb(182, 48, 0);
+}
