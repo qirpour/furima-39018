@@ -30,7 +30,7 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include('郵便番号にはハイフン(-)を含めて入力してください')
       end
       it 'prefectureを選択していないと保存できないこと' do
-        @order_address.prefecture_id = 0
+        @order_address.prefecture_id = ''
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("都道府県を入力してください")
       end

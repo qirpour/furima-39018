@@ -52,28 +52,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('販売価格は¥300〜9,999,999の間で設定してください')
       end
-      it 'categoryが「---」では登録できない' do
-        @item.category_id = '1'
+      it 'categoryが空では登録できない' do
+        @item.category_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("カテゴリーを入力してください")
       end
-      it 'conditionが「---」では登録できない' do
-        @item.condition_id = '1'
+      it 'conditionが空では登録できない' do
+        @item.condition_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("商品の状態を入力してください")
       end
-      it 'delivery chargeが「---」では登録できない' do
-        @item.delivery_charge_id = '1'
+      it 'delivery chargeが空では登録できない' do
+        @item.delivery_charge_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("配送料の負担を入力してください")
       end
-      it 'delivery dayが「---」では登録できない' do
-        @item.delivery_day_id = '1'
+      it 'delivery dayが空では登録できない' do
+        @item.delivery_day_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("発送までの日数を入力してください")
       end
-      it 'prefectureが「---」では登録できない' do
-        @item.prefecture_id = '0'
+      it 'prefectureが空では登録できない' do
+        @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("発送元の地域を入力してください")
       end
