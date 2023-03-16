@@ -41,8 +41,7 @@ class ItemsController < ApplicationController
   end
 
   def search
-    @q = Item.ransack(params[:q])
-    @items = @q.result
+    @items = Item.search(params[:search])
   end
 
   private

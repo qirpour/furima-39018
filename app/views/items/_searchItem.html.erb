@@ -1,0 +1,26 @@
+      <li class='list'>
+        <%= link_to item_path(searchItem) do %>
+        <div class='item-img-content'>
+          <%= image_tag searchItem.images[0], class: "item-img" %>
+
+          <% if searchItem.order != nil  %>
+           <div class='sold-out'>
+            <span>Sold Out!!</span>
+          </div> 
+          <% end %>
+
+        </div>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            <%= searchItem.title %>
+          </h3>
+          <div class='item-price'>
+            <span><%= searchItem.price %>円<br><%= searchItem.delivery_charge.name %></span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </li>

@@ -1,3 +1,31 @@
 <%= render "shared/header" %>
+  <div class='item-contents'>
+    <div class="subtitle" >
+      検索結果一覧
+    </div>
+    <ul class='item-lists'>
+      <%= render  partial: "searchItem", collection: @items %>
 
+      <% if @items[0] == nil %>
+      <li class='list'>
+        <%= link_to '#' do %>
+        <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            まだ商品がありません
+          </h3>
+          <div class='item-price'>
+            <span>--------円<br>(税込み)</span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </li>
+      <% end %>
+
+    </ul>
+  </div>
 <%= render "shared/footer" %>
