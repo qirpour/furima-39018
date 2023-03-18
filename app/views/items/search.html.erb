@@ -1,4 +1,5 @@
 <%= render "shared/header" %>
+
   <div class='item-contents'>
     <div class="subtitle" >
       検索結果一覧
@@ -28,4 +29,20 @@
 
     </ul>
   </div>
+
+    <div class='item-contents'>
+    <div class="subtitle" >
+      さらに詳しく検索する
+    </div>
+  <%= search_form_for @q, url: search_items_path, html: {id: "detailed-search-form"} do |s| %>
+    <div class="search-field">
+      <%= s.label :title_cont, '商品名' %>
+      <br>
+      <%= s.text_field :title_cont, placeholder: '商品名' %>
+    </div>
+    <%= s.submit '検索' %>
+  <% end %>
+  </div>
+  
+
 <%= render "shared/footer" %>

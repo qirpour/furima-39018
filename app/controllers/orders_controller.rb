@@ -7,6 +7,8 @@ class OrdersController < ApplicationController
   def index
     if !current_user.card.present?
       redirect_to user_path(current_user.id), notice: '商品購入前にクレジットカードを登録して下さい'
+    else
+      card_registration
     end
     @order_address = OrderAddress.new
   end
@@ -18,6 +20,7 @@ class OrdersController < ApplicationController
       @order_address.save
       redirect_to root_path
     else
+      card_registration
       render :index
     end
   end
@@ -45,7 +48,7 @@ class OrdersController < ApplicationController
     redirect_to root_path
   end
 
-=begin
+
   def card_registration
     if current_user.card.present?
       Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
@@ -54,7 +57,7 @@ class OrdersController < ApplicationController
       @card = customer.cards.first
     end
   end
-=end
+
 
   def pay_item
     price = @item.price
