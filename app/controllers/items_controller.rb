@@ -41,13 +41,12 @@ class ItemsController < ApplicationController
   end
 
   def search
-    if params[:search]
-      @items = Item.search(params[:search])
-      @q = Item.ransack(params[:q])
-    else
-      @q = Item.ransack(params[:q])
-      @items = @q.result
+    if params[:q]&.dig(:title)
+      squished_keywords = params[:q][:title].squish
+      params[:q][:title_cont_any] = squished_keywords.split(" ")
     end
+    @q = Item.ransack(params[:q])
+    @items = @q.result
   end
 
   private

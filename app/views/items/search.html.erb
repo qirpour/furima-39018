@@ -36,9 +36,26 @@
     </div>
   <%= search_form_for @q, url: search_items_path, html: {id: "detailed-search-form"} do |s| %>
     <div class="search-field">
-      <%= s.label :title_cont, '商品名' %>
+      <%= s.label :title, '商品名' %>
       <br>
-      <%= s.text_field :title_cont, placeholder: '商品名' %>
+      <%= s.text_field :title, placeholder: '商品名', value: params[:q]&.dig(:title) %>
+    </div>
+    <div class="search-field">
+      <%= s.label :user_nickname_cont, '出品者名' %>
+      <br>
+      <%= s.text_field :user_nickname_cont, placeholder: '出品者名' %>
+    </div>
+    <div class="search-field">
+      <%= s.label :category_id_in, 'カテゴリ' %>
+      <br>
+      <%= s.collection_check_boxes(:category_id_in, Category.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    <div class="search-field">
+      <%= s.label :price_gteq, '価格'%>
+      <br>
+      <%= s.number_field :price_gteq %> 円以上
+      <br>
+      <%= s.number_field :price_lteq %> 円以下
     </div>
     <%= s.submit '検索' %>
   <% end %>
