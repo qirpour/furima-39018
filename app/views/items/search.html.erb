@@ -31,9 +31,11 @@
   </div>
 
     <div class='item-contents'>
-    <div class="subtitle" >
+      <div class="subtitle" >
       さらに詳しく検索する
+      </div>
     </div>
+
   <%= search_form_for @q, url: search_items_path, html: {id: "detailed-search-form"} do |s| %>
     <div class="search-field">
       <%= s.label :title, '商品名' %>
@@ -59,7 +61,6 @@
     </div>
     <%= s.submit '検索' %>
   <% end %>
-  </div>
   
 
 <%= render "shared/footer" %>
