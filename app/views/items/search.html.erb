@@ -1,0 +1,75 @@
+<%= render "shared/header" %>
+
+  <div class='item-contents'>
+    <div class="subtitle" >
+      検索結果一覧
+    </div>
+    <ul class='item-lists'>
+      <%= render  partial: "searchItem", collection: @items %>
+
+      <% if @items[0] == nil %>
+      <li class='list'>
+        <%= link_to '#' do %>
+        <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            まだ商品がありません
+          </h3>
+          <div class='item-price'>
+            <span>--------円<br>(税込み)</span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </li>
+      <% end %>
+
+    </ul>
+  </div>
+
+    <div class='item-contents'>
+      <div class="subtitle" >
+      さらに詳しく検索する
+      </div>
+    </div>
+    <div class='shipping-address-form'>
+  <%= search_form_for @q, url: search_items_path, html: {id: "detailed-search-form"} do |s| %>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">商品名</label>
+        </div>
+      <%= s.text_field :title, placeholder: '商品名',class:"input-default", value: params[:q]&.dig(:title) %>
+      </div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">出品者名</label>
+        </div>
+      <%= s.text_field :user_nickname_cont, placeholder: '出品者名',class:"input-default" %>
+      </div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">カテゴリ</label>
+        </div>
+      <br>
+      <%= s.collection_check_boxes(:category_id_in, Category.all, :id, :name, {include_blank: "---"}) %>
+      </div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">商品価格</label>
+        </div>
+      <%= s.number_field :price_gteq,class:"input-default"  %> 円以上
+      <%= s.number_field :price_lteq,class:"input-default"  %> 円以下
+      </div>
+    <div class='buy-btn'>
+      <%= s.submit "検索" ,class:"buy-red-btn", id:"button" %>
+    </div>
+        <div class='item-contents'>
+    </div>
+  <% end %>
+    </div>
+  
+
+<%= render "shared/footer" %>

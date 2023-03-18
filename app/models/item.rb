@@ -15,15 +15,19 @@ class Item < ApplicationRecord
   belongs_to :delivery_day
   belongs_to :prefecture
 
-  validates :category_id, numericality: { other_than: 1, message: "を入力してください" }
-  validates :condition_id, numericality: { other_than: 1, message: "を入力してください" }
-  validates :delivery_charge_id, numericality: { other_than: 1, message: "を入力してください" }
-  validates :prefecture_id, numericality: { other_than: 0, message: "を入力してください" }
-  validates :delivery_day_id, numericality: { other_than: 1, message: "を入力してください" }
-
   with_options presence: true do
+    validates :category_id
+    validates :condition_id
+    validates :delivery_charge_id
+    validates :prefecture_id
+    validates :delivery_day_id
     validates :price,
               numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999,
                               message: 'は¥300〜9,999,999の間で設定してください' }
+  end
+
+  def self.search(search)
+    return Item.all unless search
+    Item.where(['title LIKE ?', "%#{search}%"])
   end
 end
