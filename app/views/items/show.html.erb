@@ -103,8 +103,9 @@
     <% end %>
   </div>
 
-  <%= form_with model: [@item, @comment], id: "comment-form" do |f| %>
-  <div class="comment-box">
+  <% if @item.order == nil %>
+    <%= form_with model: [@item, @comment], id: "comment-form" do |f| %>
+    <div class="comment-box">
       <%= f.text_area :text , class: "comment-text", placeholder:"コメントを入力して下さい" %>
       <p class="comment-warn">
         相手のことを考え丁寧なコメントを心がけましょう。
@@ -112,7 +113,8 @@
         不快な言葉遣いなどは利用制限や退会処分となることがあります。
       </p>
       <%= f.submit "コメントをする", class: "comment-btn" %>
-  </div>
+    </div>
+    <% end %>
   <% end %>
 <% end %>
 <%# /コメント欄 %>
