@@ -72,7 +72,19 @@
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
 | user           | references | null: false, foreign_key: true |
-| customer_token | string     | null: false,                   |
+| customer_token | string     | null: false                    |
+
+### Association
+
+- belongs_to :user
+
+## comments テーブル
+
+| Column         | Type       | Options                        |
+| -------------- | ---------- | ------------------------------ |
+| user           | references | null: false, foreign_key: true |
+| item           | references | null: false, foreign_key: true |
+| text           | text       | null: false                    |
 
 ### Association
 
